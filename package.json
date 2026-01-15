@@ -2,18 +2,23 @@
   "name": "expenses",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://pgirish007.github.io/expenses",
   "dependencies": {
+    "@react-oauth/google": "^0.13.4",
+    "jwt-decode": "^4.0.0",
     "material-components-web": "^0.12.1",
     "material-icons": "^0.1.0",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "recharts": "^3.6.0"
   },
   "devDependencies": {
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
