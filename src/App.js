@@ -120,9 +120,7 @@ const App = () => {
   // --- WRITE LOGIC (FROM APP TO SHEET) ---
   const formatExpense = (exp) => {
     // The UI gives us "MM/DD/YYYY" (e.g. "01/03/2026")
-    console.log(exp.date);
     const parts = exp.date.split('-'); 
-    console.log(parts);
     // parts[0] = Month, parts[1] = Day, parts[2] = Year
 
     // CRITICAL: We convert this string into the Google Sheets FORMULA
@@ -159,7 +157,6 @@ const App = () => {
              expDate = new Date(parts[0], parts[1] - 1, parts[2]);
           } else if (parts[2].length === 4) {
              // MM/DD/YYYY
-             console.log('I am here: ' + parts);
              expDate = new Date(parts[2], parts[1] - 1, parts[0]);
           }
       }
@@ -208,7 +205,6 @@ const App = () => {
       setCategories(loadedCategories);
       setIconMap(loadedIconMap);
       setExpenses(loadedExpenses); 
-      console.log(loadedExpenses);
       setCategoryStats(calculateStats(loadedExpenses)); 
       
       setCurrentMonth(result[3].values ? result[3].values[0][0] : 0);

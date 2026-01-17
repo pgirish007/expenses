@@ -32,6 +32,14 @@ class ExpenseForm extends Component {
     if (this.props.expense.id === undefined) {
       this.amountInput.focus();
     }
+
+    if (!this.props.expense.date) {
+      const now = new Date();
+      const month = (now.getMonth() + 1).toString().padStart(2, "0");
+      const day = now.getDate().toString().padStart(2, "0");
+      this.props.expense.date = `${month}/${day}/${now.getFullYear()}`;
+      this.props.onChange("date", `${now.getFullYear()}-${month}-${day}`);
+    }
   }
 
   handleSubmit = (event) => {
@@ -144,7 +152,7 @@ class ExpenseForm extends Component {
               type="date"
               required
             />
-            <label className="mdc-textfield__label">Date</label>
+            <label className="mdc-textfield__label"></label>
           </div>
         </div>
 
