@@ -120,13 +120,15 @@ const App = () => {
   // --- WRITE LOGIC (FROM APP TO SHEET) ---
   const formatExpense = (exp) => {
     // The UI gives us "MM/DD/YYYY" (e.g. "01/03/2026")
-    const parts = exp.date.split('/'); 
+    console.log(exp.date);
+    const parts = exp.date.split('-'); 
+    console.log(parts);
     // parts[0] = Month, parts[1] = Day, parts[2] = Year
 
     // CRITICAL: We convert this string into the Google Sheets FORMULA
     // Input: "01/03/2026" -> Output: "=DATE(2026, 1, 3)"
     // This ensures the sheet stores it strictly as a date function.
-    const dateFormula = `=DATE(${parts[2]}, ${parts[0]}, ${parts[1]})`;
+    const dateFormula = `=DATE(${parts[0]}, ${parts[1]}, ${parts[2]})`;
 
     return [
       dateFormula,      // Column A: The Formula
@@ -161,7 +163,6 @@ const App = () => {
              expDate = new Date(parts[2], parts[1] - 1, parts[0]);
           }
       }
-      console.log(expDate.getMonth(), expDate.getFullYear(), currentMonth, currentYear);
       if (expDate && expDate.getMonth() === currentMonth && expDate.getFullYear() === currentYear) {
         const amount = parseFloat(exp.amount) || 0;
         if (statsMap[exp.category]) {
@@ -275,7 +276,7 @@ const App = () => {
       </div>
 
       {showChart ? (
-        <div style={{ width: '100%', height: 250 }}>
+        <div style={{ width: '100%', height: 230, marginBottom: '35px'}}>
           {categoryStats.length > 0 ? (
             <ResponsiveContainer>
               <PieChart>
@@ -302,7 +303,7 @@ const App = () => {
             </div>
           )}
           
-          <div className="center" style={{fontSize: '0.8rem', color: '#666'}}>
+          <div className="center" style={{fontSize: '0.8rem', color: '#666', marginTop: '25px'}}>
             {filterCategory ? `Filtering: ${filterCategory}` : (categoryStats.length > 0 ? "Click a slice to filter" : "")}
           </div>
         </div>
@@ -316,7 +317,7 @@ const App = () => {
                     onClick={() => handleSliceClick(stat)}
                     style={{ cursor: 'pointer', backgroundColor: filterCategory === stat.name ? '#f0f0f0' : 'white' }}
                     >
-                    <span className="mdc-list-item__text">{stat.name}</span>
+                    <span className="mdc-list-item__text" style={{ marginRight: '10px'}}>{stat.name} : </span>
                     <span className="mdc-list-item__meta" style={{ color: COLORS[index % COLORS.length], fontWeight: 'bold' }}>
                         ${stat.value.toFixed(2)}
                     </span>
